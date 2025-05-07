@@ -1442,32 +1442,31 @@
     msg += `*TOTAL PARADAS:* (${par})\n`;
     msg += `*EQUIPES EXTRAS:* (${extras})\n\n`;
         
-    // === Disponibilidade ===
+    // ===== Início do trecho atualizado: Disponibilidade =====
     msg += "---- *DISPONIBILIDADE* ----\n\n";
 
     // Legenda
     msg += "*Legenda*\n";
     msg += situacoes.map(o => o.text).join("\n") + "\n\n";
 
-    // Para cada horário
+    // Para cada bloco de horário (06, 07, 08, 13, 14, 22h)
     document.querySelectorAll('.horario').forEach(bloco => {
-      const h = bloco.dataset.horario;
-      // só imprime o cabeçalho se houver ao menos uma linha
+      // coleta todas as linhas que não são o template
       const linhas = bloco.querySelectorAll('.equipe-rows .linha-equipe:not(.template)');
-      if (!linhas.length) return;  
+      if (!linhas.length) return;  // pula horários sem equipes
 
+      const h = bloco.dataset.horario;
       msg += `*${h}H*\n`;
 
-      // para cada linha que você adicionou naquele horário
       linhas.forEach(row => {
         const lead     = row.querySelector('.lead-select').value.trim();
         const placa    = row.querySelector('.placa-select').value.trim();
         const sitValue = row.querySelector('.situacao-select').value;
         const situText = situacoes.find(o => o.value === sitValue)?.text || '';
 
-        // LEAD (PLACA) – SITUAÇÃO
+        // monta: LEAD (PLACA) – SITUAÇÃO
         msg += lead
-             + (placa   ? ` (${placa})`  : '')
+             + (placa   ? ` (${placa})`   : '')
              + (situText? ` - ${situText}` : '')
              + "\n";
       });
