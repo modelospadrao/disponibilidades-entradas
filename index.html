@@ -1454,8 +1454,9 @@
       const h = bloco.dataset.horario;
       msg += `*${h}H*\n`;
 
+      // pega todas as linhas de equipe sem .template, seja dentro de .equipe-rows ou direto na .horario
       bloco
-        .querySelectorAll('.equipe-rows .linha-equipe:not(.template)')
+        .querySelectorAll('.linha-equipe:not(.template)')
         .forEach(row => {
           const sit   = row.querySelector('.situacao-select').value;
           const lead  = row.querySelector('.lead-select').value;
