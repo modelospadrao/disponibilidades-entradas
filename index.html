@@ -1442,39 +1442,38 @@
     msg += `*TOTAL PARADAS:* (${par})\n`;
     msg += `*EQUIPES EXTRAS:* (${extras})\n\n`;
         
-    // ===== Início do trecho atualizado: Disponibilidade =====
+    // === Nova Seção: Disponibilidade ===
     msg += "---- *DISPONIBILIDADE* ----\n\n";
 
     // Legenda
     msg += "*Legenda*\n";
     msg += situacoes.map(o => o.text).join("\n") + "\n\n";
 
-    // Para cada bloco de horário (06, 07, 08, 13, 14, 22h):
+    // Para cada horário (06H, 07H, …, 22H)
     document.querySelectorAll('.horario').forEach(bloco => {
-      // pega **todas** as linhas NÃO-template
       const linhas = bloco.querySelectorAll('.equipe-rows .linha-equipe:not(.template)');
-      if (linhas.length === 0) return;        // pula se não houver equipes
+      if (!linhas.length) return;  // só imprime o horário se houver 1+ equipes
 
-      // imprime cabeçalho só uma vez
       const h = bloco.dataset.horario;
       msg += `*${h}H*\n`;
 
-      // para cada linha clonada no horário, monta LEAD → (PLACA) → – SITUAÇÃO
       linhas.forEach(row => {
-        const lead     = row.querySelector('.lead-select').value.trim();
-        const placa    = row.querySelector('.placa-select').value.trim();
-        const sitValue = row.querySelector('.situacao-select').value;
-        const situText = situacoes.find(o => o.value === sitValue)?.text || '';
+        const lead  = row.querySelector('.lead-select').value.trim();
+        const placa = row.querySelector('.placa-select').value.trim();
+        const sit   = row.querySelector('.situacao-select').value;
+        const texto = situacoes.find(o => o.value === sit)?.text || '';
 
-        msg += lead
-             + (placa   ? ` (${placa})`   : '')
-             + (situText? ` - ${situText}` : '')
-             + "\n";
+        // montagem: LEAD (PLACA) – SITUAÇÃO
+        let linha = "";
+        if (lead)  linha += lead;
+        if (placa) linha += ` (${placa})`;
+        if (texto) linha += ` – ${texto}`;
+
+        msg += linha + "\n";
       });
 
       msg += "\n";
     });
-
     // Eletricistas parados
     const paras = document.querySelectorAll('#colaboradoresParados .colaborador');
     msg += "---- *VIATURAS PARADAS* ----\n";
