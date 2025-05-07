@@ -634,6 +634,10 @@
       /* opcional: um padding para “não colar” na borda */
       padding-left: 8px;
     }
+    /* classe utilitária para esconder */
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -812,150 +816,164 @@
     oninput="recalcularEquipesCampo()"
   ><br><br>
 </div>
+<!-- Botão para ocultar/mostrar toda a seção de Entradas -->
+<button id="toggle-entradas" class="button-default">
+  Ocultar Seção Entradas
+</button>
 
-<h2 style="color: #e63946; font-size: 22px; text-align: center; margin: 20px 0; border-bottom: 5px solid #e63946;">
-  Preencha Informação de Entradas
-</h2>
-<!-- === Seção de Horários (cole abaixo de “Preencha Informação geral”) === -->
-<div class="section horarios-section">
-  <div class="legend-box">
-    <h3>Legenda</h3>
-    <ul>
-      <li>✅ Equipe Entrou</li>
-      <li>❌ Equipe não Entrou</li>
-      <li>🕜 Equipe irá atrasar entrada</li>
-      <li>⚠️ Viatura em Oficina Corretiva</li>
-      <li>❗ Viatura em Oficina Preventiva</li>
-      <li>✈️ Equipe ou colaborador de Férias</li>
-      <li>🩺 Colaborador de Atestado</li>
-      <li>🗒️ Colaborador em Treinamento (SENAI)</li>
-      <li>🚨 Equipe Apoio</li>
-      <li>🚨 Equipe Apoio (PODAS)</li>
-    </ul>
+<!-- Seção de Entradas completa (06H a 22H) -->
+<div id="section-entradas">
+  <h2 style="color: #e63946;
+             font-size: 22px;
+             text-align: center;
+             margin: 20px 0;
+             border-bottom: 5px solid #e63946;">
+    Preencha Informação de Entradas
+  </h2>
+
+  <div class="section horarios-section">
+    <div class="legend-box">
+      <h3>Legenda</h3>
+      <ul>
+        <li>✅ Equipe Entrou</li>
+        <li>❌ Equipe não Entrou</li>
+        <li>🕜 Equipe irá atrasar entrada</li>
+        <li>⚠️ Viatura em Oficina Corretiva</li>
+        <li>❗ Viatura em Oficina Preventiva</li>
+        <li>✈️ Equipe ou colaborador de Férias</li>
+        <li>🩺 Colaborador de Atestado</li>
+        <li>🗒️ Colaborador em Treinamento (SENAI)</li>
+        <li>🚨 Equipe Apoio</li>
+        <li>🚨 Equipe Apoio (PODAS)</li>
+      </ul>
+    </div>
+
+    <div class="horarios-container">
+
+      <!-- 06H -->
+      <div class="horario" data-horario="06">
+        <h4>HORÁRIO DE 06H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('06')">Adicionar (Viatura/Lead)</button>
+          <button class="button-clear"   onclick="removeEquipe('06')">Remover (Viatura/Lead)</button>
+        </div>
+        <div class="linha-equipe-header">
+          <div class="header-lead">LEAD</div>
+          <div class="header-placa">PLACA</div>
+          <div class="header-situacao">SITUAÇÃO</div>
+        </div>
+        <div class="linha-equipe template">
+          <select class="lead-select"></select>
+          <select class="placa-select"></select>
+          <select class="situacao-select"></select>
+        </div>
+        <div class="equipe-rows"></div>
+      </div>
+
+      <!-- 07H -->
+      <div class="horario" data-horario="07">
+        <h4>HORÁRIO DE 07H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('07')">Adicionar (Viatura/Lead)</button>
+          <button class="button-clear"   onclick="removeEquipe('07')">Remover (Viatura/Lead)</button>
+        </div>
+        <div class="linha-equipe-header">
+          <div class="header-lead">LEAD</div>
+          <div class="header-placa">PLACA</div>
+          <div class="header-situacao">SITUAÇÃO</div>
+        </div>
+        <div class="linha-equipe template">
+          <select class="lead-select"></select>
+          <select class="placa-select"></select>
+          <select class="situacao-select"></select>
+        </div>
+        <div class="equipe-rows"></div>
+      </div>
+
+      <!-- 08H -->
+      <div class="horario" data-horario="08">
+        <h4>HORÁRIO DE 08H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('08')">Adicionar (Viatura/Lead)</button>
+          <button class="button-clear"   onclick="removeEquipe('08')">Remover (Viatura/Lead)</button>
+        </div>
+        <div class="linha-equipe-header">
+          <div class="header-lead">LEAD</div>
+          <div class="header-placa">PLACA</div>
+          <div class="header-situacao">SITUAÇÃO</div>
+        </div>
+        <div class="linha-equipe template">
+          <select class="lead-select"></select>
+          <select class="placa-select"></select>
+          <select class="situacao-select"></select>
+        </div>
+        <div class="equipe-rows"></div>
+      </div>
+
+      <!-- 13H -->
+      <div class="horario" data-horario="13">
+        <h4>HORÁRIO DE 13H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('13')">Adicionar (Viatura/Lead)</button>
+          <button class="button-clear"   onclick="removeEquipe('13')">Remover (Viatura/Lead)</button>
+        </div>
+        <div class="linha-equipe-header">
+          <div class="header-lead">LEAD</div>
+          <div class="header-placa">PLACA</div>
+          <div class="header-situacao">SITUAÇÃO</div>
+        </div>
+        <div class="linha-equipe template">
+          <select class="lead-select"></select>
+          <select class="placa-select"></select>
+          <select class="situacao-select"></select>
+        </div>
+        <div class="equipe-rows"></div>
+      </div>
+
+      <!-- 14H -->
+      <div class="horario" data-horario="14">
+        <h4>HORÁRIO DE 14H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('14')">Adicionar (Viatura/Lead)</button>
+          <button class="button-clear"   onclick="removeEquipe('14')">Remover (Viatura/Lead)</button>
+        </div>
+        <div class="linha-equipe-header">
+          <div class="header-lead">LEAD</div>
+          <div class="header-placa">PLACA</div>
+          <div class="header-situacao">SITUAÇÃO</div>
+        </div>
+        <div class="linha-equipe template">
+          <select class="lead-select"></select>
+          <select class="placa-select"></select>
+          <select class="situacao-select"></select>
+        </div>
+        <div class="equipe-rows"></div>
+      </div>
+
+      <!-- 22H -->
+      <div class="horario" data-horario="22">
+        <h4>HORÁRIO DE 22H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('22')">Adicionar (Viatura/Lead)</button>
+          <button class="button-clear"   onclick="removeEquipe('22')">Remover (Viatura/Lead)</button>
+        </div>
+        <div class="linha-equipe-header">
+          <div class="header-lead">LEAD</div>
+          <div class="header-placa">PLACA</div>
+          <div class="header-situacao">SITUAÇÃO</div>
+        </div>
+        <div class="linha-equipe template">
+          <select class="lead-select"></select>
+          <select class="placa-select"></select>
+          <select class="situacao-select"></select>
+        </div>
+        <div class="equipe-rows"></div>
+      </div>
+
+    </div>
   </div>
-<div class="horarios-container">
-
-  <!-- 06H -->
-  <div class="horario" data-horario="06">
-    <h4>HORÁRIO DE 06H</h4>
-    <div class="button-group">
-      <button class="button-default" onclick="addEquipe('06')">Adicionar (Viatura/Lead)</button>
-      <button class="button-clear"   onclick="removeEquipe('06')">Remover (Viatura/Lead)</button>
-    </div>
-    <div class="linha-equipe-header">
-      <div class="header-lead">LEAD</div>
-      <div class="header-placa">PLACA</div>
-      <div class="header-situacao">SITUAÇÃO</div>
-    </div>
-    <div class="linha-equipe template">
-      <select class="lead-select"></select>
-      <select class="placa-select"></select>
-      <select class="situacao-select"></select>
-    </div>
-    <div class="equipe-rows"></div>
-  </div>
-
-  <!-- 07H -->
-  <div class="horario" data-horario="07">
-    <h4>HORÁRIO DE 07H</h4>
-    <div class="button-group">
-      <button class="button-default" onclick="addEquipe('07')">Adicionar (Viatura/Lead)</button>
-      <button class="button-clear"   onclick="removeEquipe('07')">Remover (Viatura/Lead)</button>
-    </div>
-    <div class="linha-equipe-header">
-      <div class="header-lead">LEAD</div>
-      <div class="header-placa">PLACA</div>
-      <div class="header-situacao">SITUAÇÃO</div>
-    </div>
-    <div class="linha-equipe template">
-      <select class="lead-select"></select>
-      <select class="placa-select"></select>
-      <select class="situacao-select"></select>
-    </div>
-    <div class="equipe-rows"></div>
-  </div>
-
-  <!-- 08H -->
-  <div class="horario" data-horario="08">
-    <h4>HORÁRIO DE 08H</h4>
-    <div class="button-group">
-      <button class="button-default" onclick="addEquipe('08')">Adicionar (Viatura/Lead)</button>
-      <button class="button-clear"   onclick="removeEquipe('08')">Remover (Viatura/Lead)</button>
-    </div>
-    <div class="linha-equipe-header">
-      <div class="header-lead">LEAD</div>
-      <div class="header-placa">PLACA</div>
-      <div class="header-situacao">SITUAÇÃO</div>
-    </div>
-    <div class="linha-equipe template">
-      <select class="lead-select"></select>
-      <select class="placa-select"></select>
-      <select class="situacao-select"></select>
-    </div>
-    <div class="equipe-rows"></div>
-  </div>
-
-  <!-- 13H -->
-  <div class="horario" data-horario="13">
-    <h4>HORÁRIO DE 13H</h4>
-    <div class="button-group">
-      <button class="button-default" onclick="addEquipe('13')">Adicionar (Viatura/Lead)</button>
-      <button class="button-clear"   onclick="removeEquipe('13')">Remover (Viatura/Lead)</button>
-    </div>
-    <div class="linha-equipe-header">
-      <div class="header-lead">LEAD</div>
-      <div class="header-placa">PLACA</div>
-      <div class="header-situacao">SITUAÇÃO</div>
-    </div>
-    <div class="linha-equipe template">
-      <select class="lead-select"></select>
-      <select class="placa-select"></select>
-      <select class="situacao-select"></select>
-    </div>
-    <div class="equipe-rows"></div>
-  </div>
-
-  <!-- 14H -->
-  <div class="horario" data-horario="14">
-    <h4>HORÁRIO DE 14H</h4>
-    <div class="button-group">
-      <button class="button-default" onclick="addEquipe('14')">Adicionar (Viatura/Lead)</button>
-      <button class="button-clear"   onclick="removeEquipe('14')">Remover (Viatura/Lead)</button>
-    </div>
-    <div class="linha-equipe-header">
-      <div class="header-lead">LEAD</div>
-      <div class="header-placa">PLACA</div>
-      <div class="header-situacao">SITUAÇÃO</div>
-    </div>
-    <div class="linha-equipe template">
-      <select class="lead-select"></select>
-      <select class="placa-select"></select>
-      <select class="situacao-select"></select>
-    </div>
-    <div class="equipe-rows"></div>
-  </div>
-
-  <!-- 22H -->
-  <div class="horario" data-horario="22">
-    <h4>HORÁRIO DE 22H</h4>
-    <div class="button-group">
-      <button class="button-default" onclick="addEquipe('22')">Adicionar (Viatura/Lead)</button>
-      <button class="button-clear"   onclick="removeEquipe('22')">Remover (Viatura/Lead)</button>
-    </div>
-    <div class="linha-equipe-header">
-      <div class="header-lead">LEAD</div>
-      <div class="header-placa">PLACA</div>
-      <div class="header-situacao">SITUAÇÃO</div>
-    </div>
-    <div class="linha-equipe template">
-      <select class="lead-select"></select>
-      <select class="placa-select"></select>
-      <select class="situacao-select"></select>
-    </div>
-    <div class="equipe-rows"></div>
-  </div>
-
 </div>
+
 
 <div class="count-buttons-container">
   <div class="count-button">
@@ -971,61 +989,88 @@
     <span id="equipesExtras" class="value">0</span>
   </div>
 </div>
+
+    <!-- Botão e bloco de “Preencha Informação detalhada” -->
+<button id="toggle-detalhada" class="button-default">
+  Ocultar Seção Detalhada
+</button>
+<div id="section-detalhada">
+  <h2 style="
+      color: #e63946;
+      font-size: 22px;
+      text-align: center;
+      margin: 20px 0;
+      border-bottom: 5px solid #e63946;
+    ">
+    Preencha Informação detalhada
+  </h2>
+
+  <!-- Seção Eletricistas Parados -->
+  <div class="section">
+    <h3>🚗 Viaturas Paradas</h3>
+    <button class="button-default" onclick="adicionarColaborador()">Adicionar</button>
+    <button class="button-clear"   onclick="removerColaborador()">Remover</button>
+    <div id="colaboradoresParados"></div>
+    <div class="flex">
+      <label for="totalParados">TOTAL EQUIPES PARADAS:</label>
+      <input type="text" id="totalParados" readonly class="readonly">
+    </div>
+  </div>
+
+  <!-- Datalist com a lista de eletricistas (vai ser preenchido via JS) -->
+  <datalist id="eletricistasList"></datalist>
+
+  <!-- Seção Atestados -->
+  <div class="section">
+    <h3>📃 Atestados</h3>
+    <button class="button-default" onclick="adicionarColaboradorAtestado()">Adicionar</button>
+    <button class="button-clear"   onclick="removerColaboradorAtestado()">Remover</button>
+    <div id="colaboradoresAtestado"></div>
+    <div class="flex">
+      <label for="totalAtestado">TOTAL ELETRICISTAS ATESTADO:</label>
+      <input type="text" id="totalAtestado" readonly class="readonly">
+    </div>
+  </div>
+
+  <!-- Seção Faltas -->
+  <div class="section">
+    <h3>⚠️ Faltas</h3>
+    <button class="button-default" onclick="adicionarColaboradorFalta()">Adicionar</button>
+    <button class="button-clear"   onclick="removerColaboradorFalta()">Remover</button>
+    <div id="colaboradoresFalta"></div>
+    <div class="flex">
+      <label for="totalFalta">TOTAL ELETRICISTAS C/ FALTAS:</label>
+      <input type="text" id="totalFalta" readonly class="readonly">
+    </div>
+  </div>
+
+  <!-- Seção Novatos Parados -->
+  <div class="section">
+    <h3>🆕 Eletricistas Parados</h3>
+    <button class="button-default" onclick="adicionarColaboradorNovato()">Adicionar</button>
+    <button class="button-clear"   onclick="removerColaboradorNovato()">Remover</button>
+    <div id="colaboradoresNovato"></div>
+    <div class="flex">
+      <label for="totalNovato">TOTAL ELETRICISTAS PARADOS:</label>
+      <input type="text" id="totalNovato" readonly class="readonly">
+    </div>
+  </div>
+</div>
+
+<script>
+  document
+    .getElementById('toggle-detalhada')
+    .addEventListener('click', function() {
+      const section = document.getElementById('section-detalhada');
+      const hidden  = section.style.display === 'none';
+      section.style.display = hidden ? '' : 'none';
+      this.textContent = hidden
+        ? 'Ocultar Seção Detalhada'
+        : 'Mostrar Seção Detalhada';
+    });
+</script>
+
     
-     <h2 style="color: #e63946; font-size: 22px; text-align: center; margin: 20px 0; border-bottom: 5px solid #e63946;">
-        Preencha Informação detalhada
-      </h2>
-
-    <!-- Seção Eletricistas Parados -->
-    <div class="section">
-      <h3>🚗 Viaturas Paradas</h3>
-      <button class="button-default" onclick="adicionarColaborador()">Adicionar</button>
-      <button class="button-clear" onclick="removerColaborador()">Remover</button>
-      <div id="colaboradoresParados"></div>
-      <div class="flex">
-        <label for="totalParados">TOTAL EQUIPES PARADAS:</label>
-        <input type="text" id="totalParados" readonly class="readonly">
-      </div>
-    </div>
-
-    <!-- Datalist com a lista de eletricistas (vai ser preenchido via JS) -->
-    <datalist id="eletricistasList"></datalist>
-
-    <!-- Seção Atestados -->
-    <div class="section">
-      <h3>📃 Atestados</h3>
-      <button class="button-default" onclick="adicionarColaboradorAtestado()">Adicionar</button>
-      <button class="button-clear" onclick="removerColaboradorAtestado()">Remover</button>
-      <div id="colaboradoresAtestado"></div>
-      <div class="flex">
-        <label for="totalAtestado">TOTAL ELETRICISTAS ATESTADO:</label>
-        <input type="text" id="totalAtestado" readonly class="readonly">
-      </div>
-    </div>
-
-    <!-- Seção Faltas -->
-    <div class="section">
-      <h3>⚠️ Faltas</h3>
-      <button class="button-default" onclick="adicionarColaboradorFalta()">Adicionar</button>
-      <button class="button-clear" onclick="removerColaboradorFalta()">Remover</button>
-      <div id="colaboradoresFalta"></div>
-      <div class="flex">
-        <label for="totalFalta">TOTAL ELETRICISTAS C/ FALTAS:</label>
-        <input type="text" id="totalFalta" readonly class="readonly">
-      </div>
-    </div>
-
-    <!-- Seção Novatos Parados -->
-    <div class="section">
-      <h3>🆕 Eletricistas Parados</h3>
-      <button class="button-default" onclick="adicionarColaboradorNovato()">Adicionar</button>
-      <button class="button-clear" onclick="removerColaboradorNovato()">Remover</button>
-      <div id="colaboradoresNovato"></div>
-      <div class="flex">
-        <label for="totalNovato">TOTAL ELETRICISTAS PARADOS:</label>
-        <input type="text" id="totalNovato" readonly class="readonly">
-      </div>
-    </div>
     <h2 style="color: #000000; font-size: 22px; text-align: center; margin: 20px 0; border-bottom: 5px solid #000000;">
         Mensagem de Previsualização
       </h2>
@@ -1472,8 +1517,25 @@
         document.querySelectorAll('#colaboradoresNovato .colaborador-novato').length;
     }
     
+        // referências aos botões e seções
+    const btnEntradas  = document.getElementById('toggle-entradas');
+    const secEntradas  = document.getElementById('section-entradas');
+    const btnDetalhada = document.getElementById('toggle-detalhada');
+    const secDetalhada = document.getElementById('section-detalhada');
+
+    function makeToggle(btn, section, label) {
+      btn.addEventListener('click', () => {
+        section.classList.toggle('hidden');
+        const isHidden = section.classList.contains('hidden');
+        btn.textContent = (isHidden ? 'Mostrar ' : 'Ocultar ') + label;
+      });
+    }
+
+    makeToggle(btnEntradas,  secEntradas,  'Seção Entradas');
+    makeToggle(btnDetalhada, secDetalhada, 'Seção Detalhada');
+
     // Gerar mensagem de preview
-      function gerarMensagem() {
+     function gerarMensagem() {
     // Dados turno
     const t      = document.getElementById('turno').value;
     const dInput = document.getElementById('data').value;
@@ -1482,8 +1544,8 @@
     const sup    = document.getElementById('supervisor').value || '';
 
     // Resumo equipes
-    const rep  = document.getElementById('reporteHorario').value;
-    const prev = document.getElementById('previsaoEntradas').value;
+    const rep    = document.getElementById('reporteHorario').value;
+    const prev   = document.getElementById('previsaoEntradas').value;
 
     // Em campo
     const m      = document.getElementById('eqpManCorr').value   || 0;
@@ -1491,10 +1553,10 @@
     const p      = document.getElementById('eqpPoda').value      || 0;
     const pesada = document.getElementById('eqpPesada').value   || 0;
 
-    // em vez de .value:
-    const camp   = document.getElementById('equipesCampo').textContent || 0;
-    const par    = document.getElementById('equipesParadas').textContent || 0;
-    const extras = document.getElementById('equipesExtras').textContent || 0;  
+    // Totais
+    const camp   = parseInt(document.getElementById('equipesCampo').textContent, 10) || 0;
+    const par    = parseInt(document.getElementById('equipesParadas').textContent, 10) || 0;
+    const extras = parseInt(document.getElementById('equipesExtras').textContent, 10) || 0;
 
     let msg = '';
     msg += "---- *INFO. TURNO* ----\n";
@@ -1512,96 +1574,85 @@
     msg += "----- *RESUMO EQUIPES* ----\n";
     msg += `*TOTAL PARADAS:* (${par})\n`;
     msg += `*EQUIPES EXTRAS:* (${extras})\n\n`;
-        
-    // === Nova Seção: Disponibilidade ===
-    msg += "---- *DISPONIBILIDADE* ----\n\n";
 
-    // Legenda
-    msg += "*Legenda*\n";
-    msg += situacoes.map(o => o.text).join("\n") + "\n\n";
+    // --- DISPONIBILIDADE (somente se seção não estiver "hidden") ---
+    const secEntradas = document.getElementById('section-entradas');
+    if (!secEntradas.classList.contains('hidden')) {
+      msg += "---- *DISPONIBILIDADE* ----\n\n";
+      msg += "*Legenda*\n" + situacoes.map(o => o.text).join("\n") + "\n\n";
+      document.querySelectorAll('.horario').forEach(bloco => {
+        const linhas = bloco.querySelectorAll('.equipe-rows .linha-equipe:not(.template)');
+        if (!linhas.length) return;
+        msg += `*${bloco.dataset.horario}H*\n`;
+        linhas.forEach(row => {
+          const lead  = row.querySelector('.lead-select').value.trim();
+          const placa = row.querySelector('.placa-select').value.trim();
+          const sit   = row.querySelector('.situacao-select').value;
+          const texto = situacoes.find(o => o.value === sit)?.text || '';
+          let linha = lead + (placa ? ` (${placa})` : '') + (texto ? ` – ${texto}` : '');
+          msg += linha + "\n";
+        });
+        msg += "\n";
+      });
+    }
 
-    // Para cada horário (06H, 07H, …, 22H)
-    document.querySelectorAll('.horario').forEach(bloco => {
-      const linhas = bloco.querySelectorAll('.equipe-rows .linha-equipe:not(.template)');
-      if (!linhas.length) return;  // só imprime o horário se houver 1Adicionar (Viatura/Lead)s
-
-      const h = bloco.dataset.horario;
-      msg += `*${h}H*\n`;
-
-      linhas.forEach(row => {
-        const lead  = row.querySelector('.lead-select').value.trim();
-        const placa = row.querySelector('.placa-select').value.trim();
-        const sit   = row.querySelector('.situacao-select').value;
-        const texto = situacoes.find(o => o.value === sit)?.text || '';
-
-        // montagem: LEAD (PLACA) – SITUAÇÃO
-        let linha = "";
-        if (lead)  linha += lead;
-        if (placa) linha += ` (${placa})`;
-        if (texto) linha += ` – ${texto}`;
-
-        msg += linha + "\n";
+    // --- DETALHADA (somente se seção não estiver "hidden") ---
+    const secDetalhada = document.getElementById('section-detalhada');
+    if (!secDetalhada.classList.contains('hidden')) {
+      // Viaturas Paradas
+      const paras = document.querySelectorAll('#colaboradoresParados .colaborador');
+      msg += "---- *VIATURAS PARADAS* ----\n";
+      msg += `*TOTAL* (${paras.length})\n\n`;
+      paras.forEach(c => {
+        msg += `*PLACA:* ${c.querySelector('.nomeColaborador').value}\n`;
+        msg += `*JUSTIFICATIVA:* ${c.querySelector('.motivoColaborador').value}\n\n`;
       });
 
-      msg += "\n";
-    });
-    // Eletricistas parados
-    const paras = document.querySelectorAll('#colaboradoresParados .colaborador');
-    msg += "---- *VIATURAS PARADAS* ----\n";
-    msg += `*TOTAL* (${paras.length})\n\n`;
-    paras.forEach(c => {
-      const nome = c.querySelector('.nomeColaborador').value;
-      const mot  = c.querySelector('.motivoColaborador').value;
-      msg += `*PLACA:* ${nome}\n*JUSTIFICATIVA:* ${mot}\n\n`;
-    });
+      // Atestados
+      const ates = document.querySelectorAll('#colaboradoresAtestado .colaborador-atestado');
+      msg += "---- *ATESTADOS* ----\n";
+      msg += `*TOTAL* (${ates.length})\n\n`;
+      ates.forEach(a => {
+        const inicio  = a.querySelector('.dataInicioAtestado').value.split('-').reverse().join('/');
+        const retorno = a.querySelector('.previsaoRetornoAtestado').value.split('-').reverse().join('/');
+        msg += `*NOME:* ${a.querySelector('.nomeColaboradorAtestado').value}\n`;
+        msg += `*INÍCIO:* ${inicio}\n`;
+        msg += `*DIAS AFASTADO:* ${a.querySelector('.diasAfastado').value}\n`;
+        msg += `*RETORNO:* ${retorno}\n\n`;
+      });
 
-    // Atestados
-    const ates = document.querySelectorAll('#colaboradoresAtestado .colaborador-atestado');
-    msg += "---- *ATESTADOS* ----\n";
-    msg += `*TOTAL* (${ates.length})\n\n`;
-    ates.forEach(a => {
-      const nome   = a.querySelector('.nomeColaboradorAtestado').value;
-      const inicio = a.querySelector('.dataInicioAtestado').value.split('-').reverse().join('/');
-      const dias   = a.querySelector('.diasAfastado').value;
-      const fim    = a.querySelector('.previsaoRetornoAtestado').value.split('-').reverse().join('/');
-      msg += `*NOME:* ${nome}\n*INÍCIO:* ${inicio}\n*DIAS AFASTADO:* ${dias}\n*RETORNO:* ${fim}\n\n`;
-    });
+      // Faltas
+      const falt = document.querySelectorAll('#colaboradoresFalta .colaborador-falta');
+      msg += "---- *FALTAS* ----\n";
+      msg += `*TOTAL* (${falt.length})\n\n`;
+      falt.forEach(f => {
+        msg += `*NOME:* ${f.querySelector('.nomeColaboradorFalta').value}\n`;
+        msg += `*DATA:* ${f.querySelector('.dataFalta').value.split('-').reverse().join('/')}\n\n`;
+      });
 
-    // Faltas
-    const falt = document.querySelectorAll('#colaboradoresFalta .colaborador-falta');
-    msg += "---- *FALTAS* ----\n";
-    msg += `*TOTAL* (${falt.length})\n\n`;
-    falt.forEach(f => {
-      const nome = f.querySelector('.nomeColaboradorFalta').value;
-      const dia  = f.querySelector('.dataFalta').value.split('-').reverse().join('/');
-      msg += `*NOME:* ${nome}\n*DATA:* ${dia}\n\n`;
-    });
+      // Novatos
+      const nov = document.querySelectorAll('#colaboradoresNovato .colaborador-novato');
+      msg += "---- *ELETRIC. PARADOS* ----\n";
+      msg += `*TOTAL* (${nov.length})\n\n`;
+      nov.forEach(n => {
+        msg += `*NOME:* ${n.querySelector('.nomeColaboradorNovato').value}\n`;
+        msg += `*JUSTIFICATIVA:* ${n.querySelector('.motivoNovato').value}\n`;
+        msg += `*PREVISÃO RETORNO:* ${n.querySelector('.previsaoRetornoNovato').value.split('-').reverse().join('/')}\n\n`;
+      });
+    }
 
-    // Novatos
-    const nov = document.querySelectorAll('#colaboradoresNovato .colaborador-novato');
-    msg += "---- *ELETRIC. PARADOS* ----\n";
-    msg += `*TOTAL* (${nov.length})\n\n`;
-    nov.forEach(n => {
-      const nome = n.querySelector('.nomeColaboradorNovato').value;
-      const mot  = n.querySelector('.motivoNovato').value;
-      const ret  = n.querySelector('.previsaoRetornoNovato').value.split('-').reverse().join('/');
-      msg += `*NOME:* ${nome}\n*JUSTIFICATIVA:* ${mot}\n*PREVISAO RETORNO:* ${ret}\n\n`;
-    });
+    // Tempo da sessão e carimbo de data/hora
+    if (globalTimerStart) {
+      const sec = Math.floor((Date.now() - globalTimerStart) / 1000);
+      msg += `*TEMPO DA SESSÃO:* ${formatTime(sec)}\n`;
+    }
+    msg += formatFullDateTime(new Date());
 
-      // Tempo da sessão
-      if (globalTimerStart) {
-        const sec = Math.floor((Date.now() - globalTimerStart) / 1000);
-        msg += `*TEMPO DA SESSÃO:* ${formatTime(sec)}\n`;
-      }
+    // Exibe no textarea
+    document.getElementById('mensagem').value = msg.trim();
+    showPopup('gerar-popup', 1500);
+  }
 
-      // Carimbo de data/hora completa
-      const now = new Date();
-      msg += `${formatFullDateTime(now)}`;
-
-      // Exibe no textarea e popup
-      document.getElementById('mensagem').value = msg.trim();
-      showPopup('gerar-popup', 1500);
-    }  // ← Fecha gerarMensagem()
 
     // Funções auxiliares, todas *fora* de gerarMensagem():
     
