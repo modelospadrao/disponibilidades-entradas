@@ -1449,22 +1449,23 @@
     msg += "*Legenda*\n";
     msg += situacoes.map(o => o.text).join("\n") + "\n\n";
 
-    // Para cada bloco de horário (06, 07, 08, 13, 14, 22h)
+    // Para cada bloco de horário (06, 07, 08, 13, 14, 22h):
     document.querySelectorAll('.horario').forEach(bloco => {
-      // coleta todas as linhas que não são o template
+      // pega **todas** as linhas NÃO-template
       const linhas = bloco.querySelectorAll('.equipe-rows .linha-equipe:not(.template)');
-      if (!linhas.length) return;  // pula horários sem equipes
+      if (linhas.length === 0) return;        // pula se não houver equipes
 
+      // imprime cabeçalho só uma vez
       const h = bloco.dataset.horario;
       msg += `*${h}H*\n`;
 
+      // para cada linha clonada no horário, monta LEAD → (PLACA) → – SITUAÇÃO
       linhas.forEach(row => {
         const lead     = row.querySelector('.lead-select').value.trim();
         const placa    = row.querySelector('.placa-select').value.trim();
         const sitValue = row.querySelector('.situacao-select').value;
         const situText = situacoes.find(o => o.value === sitValue)?.text || '';
 
-        // monta: LEAD (PLACA) – SITUAÇÃO
         msg += lead
              + (placa   ? ` (${placa})`   : '')
              + (situText? ` - ${situText}` : '')
