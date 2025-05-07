@@ -1442,26 +1442,30 @@
     msg += `*TOTAL PARADAS:* (${par})\n`;
     msg += `*EQUIPES EXTRAS:* (${extras})\n\n`;
         
-    // === Nova Seção: Disponibilidade ===
+    // === Disponibilidade ===
     msg += "---- *DISPONIBILIDADE* ----\n\n";
 
     // Legenda
     msg += "*Legenda*\n";
     msg += situacoes.map(o => o.text).join("\n") + "\n\n";
 
-    // === dentro de gerarMensagem(), substitua o trecho de disponibilidade por este ===
-        document.querySelectorAll('.horario').forEach(bloco => {
+    // Para cada horário
+    document.querySelectorAll('.horario').forEach(bloco => {
       const h = bloco.dataset.horario;
+      // só imprime o cabeçalho se houver ao menos uma linha
+      const linhas = bloco.querySelectorAll('.equipe-rows .linha-equipe:not(.template)');
+      if (!linhas.length) return;  
+
       msg += `*${h}H*\n`;
 
-      bloco
-      .querySelectorAll('.equipe-rows .linha-equipe:not(.template)')
-      .forEach(row => {
+      // para cada linha que você adicionou naquele horário
+      linhas.forEach(row => {
         const lead     = row.querySelector('.lead-select').value.trim();
         const placa    = row.querySelector('.placa-select').value.trim();
         const sitValue = row.querySelector('.situacao-select').value;
         const situText = situacoes.find(o => o.value === sitValue)?.text || '';
 
+        // LEAD (PLACA) – SITUAÇÃO
         msg += lead
              + (placa   ? ` (${placa})`  : '')
              + (situText? ` - ${situText}` : '')
