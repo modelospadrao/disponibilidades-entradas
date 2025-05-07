@@ -1449,28 +1449,28 @@
     msg += "*Legenda*\n";
     msg += situacoes.map(o => o.text).join("\n") + "\n\n";
 
-    // Para cada horário
-      document.querySelectorAll('.horario').forEach(bloco => {
-    const h = bloco.dataset.horario;
-    msg += `*${h}H*\n`;
+    // === dentro de gerarMensagem(), substitua o trecho de disponibilidade por este ===
+    document.querySelectorAll('.horario').forEach(bloco => {
+      const h = bloco.dataset.horario;
+      msg += `*${h}H*\n`;
 
-    bloco
-      .querySelectorAll('.equipe-rows .linha-equipe:not(.template)')
-      .forEach(row => {
-        const sit   = row.querySelector('.situacao-select').value;
-        const lead  = row.querySelector('.lead-select').value;
-        const placa = row.querySelector('.placa-select').value;
-        const situText = situacoes.find(o => o.value === sit)?.text || '';
+      bloco
+        .querySelectorAll('.equipe-rows .linha-equipe:not(.template)')
+        .forEach(row => {
+          const lead      = row.querySelector('.lead-select').value;
+          const placa     = row.querySelector('.placa-select').value;
+          const sitValue  = row.querySelector('.situacao-select').value;
+          const situText  = situacoes.find(o => o.value === sitValue)?.text || '';
 
-        // monta: situação + lead + (placa)
-        msg += `${situText}` +
-               (lead  ? ` ${lead}`        : '') +
-               (placa ? ` (${placa})`     : '') +
-               "\n";
-      });
+          // monta: LEAD + (PLACA) + “ - ” + SITUAÇÃO
+          msg += (lead    ? `${lead}`             : '') +
+                 (placa   ? ` (${placa})`        : '') +
+                 (situText? ` - ${situText}`     : '') +
+                 "\n";
+        });
 
-    msg += "\n";
-  });
+      msg += "\n";
+    });
 
     // Eletricistas parados
     const paras = document.querySelectorAll('#colaboradoresParados .colaborador');
