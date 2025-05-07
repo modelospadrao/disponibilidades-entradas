@@ -638,10 +638,6 @@
     .hidden {
       display: none !important;
     }
-    .base-option.selected {
-      background-color: #000;
-      color: #fff;
-    }
   </style>
 </head>
 <body>
@@ -744,16 +740,9 @@
       <br><br>
       <label>🏬 Base:</label>
       <input type="text" id="base" readonly>
-
-      <button class="button-default base-option" onclick="setBase('JACARECANGA')">
-        Jacarecanga
-      </button>
-      <button class="button-default base-option" onclick="setBase('MARACANAU')">
-        Maracanaú
-      </button>
-      <button class="button-default base-option" onclick="setBase('MESSEJANA')">
-        Messejana
-      </button>
+      <button class="button-default base-option" onclick="setBase('JACARECANGA')">Jacarecanga</button>
+      <button class="button-default base-option" onclick="setBase('MARACANAU')">Maracanaú</button>
+      <button class="button-default base-option" onclick="setBase('MESSEJANA')">Messejana</button>
       <br><br>
       <label>👤 Supervisor:</label>
       <input type="text" id="supervisor" class="preview-box" readonly>
@@ -1786,43 +1775,30 @@
       { value:'apoio',      text:'🚨 Equipe Apoio (PODAS)' }
     ];
 
-        function normalizeStr(str) {
-      return str.trim()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .toUpperCase();
-    }
-
-    function setBase(baseName) {
-      document.getElementById('base').value = baseName;
-      document.querySelectorAll('.base-option').forEach(btn => {
-        btn.classList.toggle(
-          'selected',
-          normalizeStr(btn.innerText) === normalizeStr(baseName)
-        );
-      });
-      loadScheduleData();
-    }
-
-    // Busca leads_BASE.json e placas_BASE.json e preenche todos os .linha-equipe.template
+    // 2) carregamento inicial dos selects-templares
+    window.addEventListener('DOMContentLoaded', loadScheduleData);
     function loadScheduleData() {
-      const base = document.getElementById('base').value.toUpperCase();
+      const base = document.getElementById('base').value || 'JACARECANGA';
       Promise.all([
-        fetch(`leads_${base}.json`).then(r => r.json()),
-        fetch(`placas_${base}.json`).then(r => r.json())
+        fetch(`leads_${base}.json`).then(r=>r.json()),
+        fetch(`placas_${base}.json`).then(r=>r.json())
       ])
       .then(([leads, placas]) => {
         document.querySelectorAll('.linha-equipe.template').forEach(tpl => {
+          tpl.querySelector('.situacao-select').innerHTML =
+            '<option value="">— selecione —</option>' +
+            situacoes.map(o=>`<option value="${o.value}">${o.text}</option>`).join('');
           tpl.querySelector('.lead-select').innerHTML =
             '<option value="">— selecione —</option>' +
-            leads.map(l => `<option value="${l}">${l}</option>`).join('');
+            leads.map(n=>`<option>${n}</option>`).join('');
           tpl.querySelector('.placa-select').innerHTML =
             '<option value="">— selecione —</option>' +
-            placas.map(p => `<option value="${p}">${p}</option>`).join('');
+            placas.map(p=>`<option>${p}</option>`).join('');
         });
       })
-      .catch(err => console.error('Erro ao carregar bases:', err));
+      .catch(console.error);
     }
+
     // 3) funções de adicionar / remover linhas
     function addEquipe(horario) {
       const bloco = document.querySelector(`.horario[data-horario="${horario}"]`);
