@@ -593,9 +593,46 @@
       font-weight: bold;
     }
 
-    /* 3) esconde o header no template real */
-    .linha-equipe.template + .equipe-rows .linha-equipe-header {
+        /* oculta linha cabecalho e template */
+    .linha-equipe-header,
+    .linha-equipe.template {
       display: none;
+    }
+    /* quando houver pelo menos 1 clone dentro de .equipe-rows, exibe o header */
+    .horario .equipe-rows .linha-equipe-header {
+      display: flex;
+    }
+    /* e exibe também cada linha clonada */
+    .horario .equipe-rows .linha-equipe {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .linha-equipe select {
+      height: 40px;
+    }
+        .horario .button-group {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .linha-equipe-header {
+      display: grid;
+      grid-template-columns: 140px 140px 120px;
+      gap: 6px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .horario h4 {
+      text-align: left;
+    }
+
+    /* Se for as células de “SITUAÇÃO”, “LEAD” e “PLACA” */
+    .linha-equipe-header > div {
+      justify-content: flex-start;
+      /* opcional: um padding para “não colar” na borda */
+      padding-left: 8px;
     }
   </style>
 </head>
@@ -796,94 +833,128 @@
       <li>🚨 Equipe Apoio (PODAS)</li>
     </ul>
   </div>
-  <div class="horarios-container">
+<div class="horarios-container">
 
-    <!-- 06H -->
-    <div class="horario" data-horario="06">
-      <h4>HORÁRIO DE 06H</h4>
-     <div class="linha-equipe-header">
-      <div class="header-situacao">SITUAÇÃO</div>
+  <!-- 06H -->
+  <div class="horario" data-horario="06">
+    <h4>HORÁRIO DE 06H</h4>
+    <div class="button-group">
+      <button class="button-default" onclick="addEquipe('06')">Adicionar (Viatura/Lead)</button>
+      <button class="button-clear"   onclick="removeEquipe('06')">Remover (Viatura/Lead)</button>
+    </div>
+    <div class="linha-equipe-header">
       <div class="header-lead">LEAD</div>
       <div class="header-placa">PLACA</div>
-      <div class="header-actions"></div>
-      <div class="header-actions"></div>
+      <div class="header-situacao">SITUAÇÃO</div>
     </div>
-      <div class="linha-equipe template">
-        <select class="situacao-select"></select>
-        <select class="lead-select"></select>
-        <select class="placa-select"></select>
-        <button onclick="addEquipe('06')">+ Equipe</button>
-        <button onclick="removeEquipe('06')">– Equipe</button>
-      </div>
-      <div class="equipe-rows"></div>
+    <div class="linha-equipe template">
+      <select class="lead-select"></select>
+      <select class="placa-select"></select>
+      <select class="situacao-select"></select>
     </div>
-
-    <!-- 07H -->
-    <div class="horario" data-horario="07">
-      <h4>HORÁRIO DE 07H</h4>
-      <div class="linha-equipe template">
-        <select class="situacao-select"></select>
-        <select class="lead-select"></select>
-        <select class="placa-select"></select>
-        <button onclick="addEquipe('07')">+ Equipe</button>
-        <button onclick="removeEquipe('07')">– Equipe</button>
-      </div>
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 08H -->
-    <div class="horario" data-horario="08">
-      <h4>HORÁRIO DE 08H</h4>
-      <div class="linha-equipe template">
-        <select class="situacao-select"></select>
-        <select class="lead-select"></select>
-        <select class="placa-select"></select>
-        <button onclick="addEquipe('08')">+ Equipe</button>
-        <button onclick="removeEquipe('08')">– Equipe</button>
-      </div>
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 13H -->
-    <div class="horario" data-horario="13">
-      <h4>HORÁRIO DE 13H</h4>
-      <div class="linha-equipe template">
-        <select class="situacao-select"></select>
-        <select class="lead-select"></select>
-        <select class="placa-select"></select>
-        <button onclick="addEquipe('13')">+ Equipe</button>
-        <button onclick="removeEquipe('13')">– Equipe</button>
-      </div>
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 14H -->
-    <div class="horario" data-horario="14">
-      <h4>HORÁRIO DE 14H</h4>
-      <div class="linha-equipe template">
-        <select class="situacao-select"></select>
-        <select class="lead-select"></select>
-        <select class="placa-select"></select>
-        <button onclick="addEquipe('14')">+ Equipe</button>
-        <button onclick="removeEquipe('14')">– Equipe</button>
-      </div>
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 22H -->
-    <div class="horario" data-horario="22">
-      <h4>HORÁRIO DE 22H</h4>
-      <div class="linha-equipe template">
-        <select class="situacao-select"></select>
-        <select class="lead-select"></select>
-        <select class="placa-select"></select>
-        <button onclick="addEquipe('22')">+ Equipe</button>
-        <button onclick="removeEquipe('22')">– Equipe</button>
-      </div>
-      <div class="equipe-rows"></div>
-    </div>
-
+    <div class="equipe-rows"></div>
   </div>
+
+  <!-- 07H -->
+  <div class="horario" data-horario="07">
+    <h4>HORÁRIO DE 07H</h4>
+    <div class="button-group">
+      <button class="button-default" onclick="addEquipe('07')">Adicionar (Viatura/Lead)</button>
+      <button class="button-clear"   onclick="removeEquipe('07')">Remover (Viatura/Lead)</button>
+    </div>
+    <div class="linha-equipe-header">
+      <div class="header-lead">LEAD</div>
+      <div class="header-placa">PLACA</div>
+      <div class="header-situacao">SITUAÇÃO</div>
+    </div>
+    <div class="linha-equipe template">
+      <select class="lead-select"></select>
+      <select class="placa-select"></select>
+      <select class="situacao-select"></select>
+    </div>
+    <div class="equipe-rows"></div>
+  </div>
+
+  <!-- 08H -->
+  <div class="horario" data-horario="08">
+    <h4>HORÁRIO DE 08H</h4>
+    <div class="button-group">
+      <button class="button-default" onclick="addEquipe('08')">Adicionar (Viatura/Lead)</button>
+      <button class="button-clear"   onclick="removeEquipe('08')">Remover (Viatura/Lead)</button>
+    </div>
+    <div class="linha-equipe-header">
+      <div class="header-lead">LEAD</div>
+      <div class="header-placa">PLACA</div>
+      <div class="header-situacao">SITUAÇÃO</div>
+    </div>
+    <div class="linha-equipe template">
+      <select class="lead-select"></select>
+      <select class="placa-select"></select>
+      <select class="situacao-select"></select>
+    </div>
+    <div class="equipe-rows"></div>
+  </div>
+
+  <!-- 13H -->
+  <div class="horario" data-horario="13">
+    <h4>HORÁRIO DE 13H</h4>
+    <div class="button-group">
+      <button class="button-default" onclick="addEquipe('13')">Adicionar (Viatura/Lead)</button>
+      <button class="button-clear"   onclick="removeEquipe('13')">Remover (Viatura/Lead)</button>
+    </div>
+    <div class="linha-equipe-header">
+      <div class="header-lead">LEAD</div>
+      <div class="header-placa">PLACA</div>
+      <div class="header-situacao">SITUAÇÃO</div>
+    </div>
+    <div class="linha-equipe template">
+      <select class="lead-select"></select>
+      <select class="placa-select"></select>
+      <select class="situacao-select"></select>
+    </div>
+    <div class="equipe-rows"></div>
+  </div>
+
+  <!-- 14H -->
+  <div class="horario" data-horario="14">
+    <h4>HORÁRIO DE 14H</h4>
+    <div class="button-group">
+      <button class="button-default" onclick="addEquipe('14')">Adicionar (Viatura/Lead)</button>
+      <button class="button-clear"   onclick="removeEquipe('14')">Remover (Viatura/Lead)</button>
+    </div>
+    <div class="linha-equipe-header">
+      <div class="header-lead">LEAD</div>
+      <div class="header-placa">PLACA</div>
+      <div class="header-situacao">SITUAÇÃO</div>
+    </div>
+    <div class="linha-equipe template">
+      <select class="lead-select"></select>
+      <select class="placa-select"></select>
+      <select class="situacao-select"></select>
+    </div>
+    <div class="equipe-rows"></div>
+  </div>
+
+  <!-- 22H -->
+  <div class="horario" data-horario="22">
+    <h4>HORÁRIO DE 22H</h4>
+    <div class="button-group">
+      <button class="button-default" onclick="addEquipe('22')">Adicionar (Viatura/Lead)</button>
+      <button class="button-clear"   onclick="removeEquipe('22')">Remover (Viatura/Lead)</button>
+    </div>
+    <div class="linha-equipe-header">
+      <div class="header-lead">LEAD</div>
+      <div class="header-placa">PLACA</div>
+      <div class="header-situacao">SITUAÇÃO</div>
+    </div>
+    <div class="linha-equipe template">
+      <select class="lead-select"></select>
+      <select class="placa-select"></select>
+      <select class="situacao-select"></select>
+    </div>
+    <div class="equipe-rows"></div>
+  </div>
+
 </div>
 
 <div class="count-buttons-container">
@@ -1452,7 +1523,7 @@
     // Para cada horário (06H, 07H, …, 22H)
     document.querySelectorAll('.horario').forEach(bloco => {
       const linhas = bloco.querySelectorAll('.equipe-rows .linha-equipe:not(.template)');
-      if (!linhas.length) return;  // só imprime o horário se houver 1+ equipes
+      if (!linhas.length) return;  // só imprime o horário se houver 1Adicionar (Viatura/Lead)s
 
       const h = bloco.dataset.horario;
       msg += `*${h}H*\n`;
