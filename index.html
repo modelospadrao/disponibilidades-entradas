@@ -1150,7 +1150,7 @@
       const sel = document.createElement('select');
       sel.className = className;
       sel.innerHTML =
-        '<option value="">— selecione —</option>' +
+        '<option value=""> —— SELECIONE ITEM —— </option>' +
         eletricistas
           .map(n => `<option value="${n}">${n}</option>`)
           .join('');
@@ -1786,13 +1786,13 @@
       .then(([leads, placas]) => {
         document.querySelectorAll('.linha-equipe.template').forEach(tpl => {
           tpl.querySelector('.situacao-select').innerHTML =
-            '<option value="">— selecione —</option>' +
+            '<option value=""> —— SELECIONE ITEM —— </option>' +
             situacoes.map(o=>`<option value="${o.value}">${o.text}</option>`).join('');
           tpl.querySelector('.lead-select').innerHTML =
-            '<option value="">— selecione —</option>' +
+            '<option value=""> —— SELECIONE ITEM —— </option>' +
             leads.map(n=>`<option>${n}</option>`).join('');
           tpl.querySelector('.placa-select').innerHTML =
-            '<option value="">— selecione —</option>' +
+            '<option value=""> —— SELECIONE ITEM —— </option>' +
             placas.map(p=>`<option>${p}</option>`).join('');
         });
       })
