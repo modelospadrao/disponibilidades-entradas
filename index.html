@@ -514,9 +514,18 @@
     #update-popup {
       text-align: left;
     }
-    ////* esconde a linha-modelo, que só serve de template */
+    /* 3) linha-modelo fica SEMPRE oculta */
     .linha-equipe.template {
-      display: none;
+      display: none !important;
+    }
+
+    /* 4) só as linhas clonadas (SEM .template) são exibidas em grid */
+    .linha-equipe:not(.template) {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr auto;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
     }
 
     /* opcional: ajuste no container geral */
@@ -1998,9 +2007,21 @@
     function addEquipe(horario) {
       const bloco = document.querySelector(`.horario[data-horario="${horario}"]`);
       const tpl   = bloco.querySelector('.linha-equipe.template');
-      if (!tpl) return console.error(`template não encontrado para ${horario}`);
+      if (!tpl) return;
+
       const clone = tpl.cloneNode(true);
       clone.classList.remove('template');
+
+      // — limpa TODOS os campos do clone —
+      clone.querySelector('.lead-select').value     = '';
+      clone.querySelector('.placa-select').value    = '';
+      clone.querySelector('.situacao-select').value = '';
+      const extSel = clone.querySelector('.extension-select');
+      const extIn  = clone.querySelector('.extension-hours');
+      extSel.value = 'no';
+      extIn.value   = '';
+      extIn.classList.add('hidden');
+
       bloco.querySelector('.equipe-rows').appendChild(clone);
     }
 
