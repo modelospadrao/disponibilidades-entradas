@@ -638,6 +638,64 @@
     .hidden {
       display: none !important;
     }
+    
+    /* 1) Garante que cada .horario organize tudo em coluna */
+.horario {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;              /* espaçamento entre título, botões e linhas */
+  padding: 8px;
+}
+
+/* 2) Força .button-group a ocupar 100% e alinhar as ações à esquerda */
+.horario .button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+/* 3) Uniformiza o grid das linhas-TEMPLATE para ter 4 colunas proporcionais */
+.linha-equipe.template {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* 4) As linhas clonadas (não-template) seguem o mesmo grid */
+.linha-equipe:not(.template) {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* 5) Ajuste nos selects e inputs para ocupar 100% da célula */
+.linha-equipe select,
+.linha-equipe .extension-select,
+.linha-equipe .extension-hours {
+  width: 100%;
+  box-sizing: border-box;
+}
+.horario.fullwidth {
+  flex: 1 1 100% !important;
+  max-width: 100% !important;
+}
+.horarios-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Para os dois primeiros horários */
+.horario.fullwidth {
+  flex: 0 0 100%;
+}
+
   </style>
 </head>
 <body>
@@ -816,6 +874,7 @@
     oninput="recalcularEquipesCampo()"
   ><br><br>
 </div>
+
 <!-- Botão para ocultar/mostrar toda a seção de Entradas -->
 <button id="toggle-entradas" class="button-default">
   Ocultar Seção Entradas
@@ -833,6 +892,8 @@
 
   <div class="section horarios-section">
     <div class="legend-box">
+      <div class="section horarios-section">
+    <div class="legend-box">
       <h3>Legenda</h3>
       <ul>
         <li>✅ Equipe Entrou</li>
@@ -848,272 +909,240 @@
       </ul>
     </div>
 
-    <div class="horarios-container">
-
-         <!-- 06H (full width) -->
-    <div class="horario" data-horario="06" style="width:100%; margin-bottom:16px;">
-      <h4>HORÁRIO DE 06H</h4>
-      <div class="button-group">
-        <button class="button-default" onclick="addEquipe('06')">Adicionar</button>
-        <button class="button-clear"   onclick="removeEquipe('06')">Remover</button>
-      </div>
-
-      <div class="linha-equipe template"
-           style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:start; margin-bottom:6px;">
-        <!-- Lead -->
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">LEAD</label>
-          <select class="lead-select"></select>
-        </div>
-        <!-- Placa -->
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">PLACA</label>
-          <select class="placa-select"></select>
-        </div>
-        <!-- Situação -->
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">SITUAÇÃO</label>
-          <select class="situacao-select"></select>
-        </div>
-        <!-- Extensão -->
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">EXTENSÃO</label>
-          <div style="display:flex; gap:4px; align-items:center;">
-            <select class="extension-select"
-                    onchange="toggleExtensionHoursRow(this)"
-                    style="width:60px;">
-              <option value="no">NÃO</option>
-              <option value="yes">SIM</option>
-            </select>
-            <input type="number"
-                   min="1"
-                   class="extension-hours hidden"
-                   placeholder="h"
-                   style="width:30px;" />
-          </div>
-        </div>
-      </div>
-
-      <div class="equipe-rows"></div>
     </div>
 
-    <!-- 07H (full width) -->
-    <div class="horario" data-horario="07" style="width:100%; margin-bottom:16px;">
-      <h4>HORÁRIO DE 07H</h4>
-      <div class="button-group">
-        <button class="button-default" onclick="addEquipe('07')">Adicionar</button>
-        <button class="button-clear"   onclick="removeEquipe('07')">Remover</button>
-      </div>
-
-      <div class="linha-equipe template"
-           style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:start; margin-bottom:6px;">
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">LEAD</label>
-          <select class="lead-select"></select>
+                <!-- 06H -->
+      <div class="horario fullwidth" data-horario="06" style="margin-bottom:16px;">
+        <h4>HORÁRIO DE 06H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('06')">Adicionar</button>
+          <button class="button-clear"   onclick="removeEquipe('06')">Remover</button>
         </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">PLACA</label>
-          <select class="placa-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">SITUAÇÃO</label>
-          <select class="situacao-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">EXTENSÃO</label>
-          <div style="display:flex; gap:4px; align-items:center;">
-            <select class="extension-select"
-                    onchange="toggleExtensionHoursRow(this)"
-                    style="width:60px;">
-              <option value="no">NÃO</option>
-              <option value="yes">SIM</option>
-            </select>
-            <input type="number"
-                   min="1"
-                   class="extension-hours hidden"
-                   placeholder="h"
-                   style="width:30px;" />
+        <div class="linha-equipe template" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:start;margin-bottom:6px;">
+          <!-- LEAD -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">LEAD</label>
+            <select class="lead-select"></select>
+          </div>
+          <!-- PLACA -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">PLACA</label>
+            <select class="placa-select"></select>
+          </div>
+          <!-- SITUAÇÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">SITUAÇÃO</label>
+            <select class="situacao-select"></select>
+          </div>
+          <!-- EXTENSÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">EXTENSÃO</label>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <select class="extension-select" onchange="toggleExtensionHoursRow(this)" style="width:60px;">
+                <option value="no">NÃO</option>
+                <option value="yes">SIM</option>
+              </select>
+              <input type="number" min="1" class="extension-hours hidden" placeholder="h" style="width:30px;"/>
+            </div>
           </div>
         </div>
+        <div class="equipe-rows"></div>
       </div>
 
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 08H -->
-    <div class="horario" data-horario="08">
-      <h4>HORÁRIO DE 08H</h4>
-      <div class="button-group">
-        <button class="button-default" onclick="addEquipe('08')">Adicionar</button>
-        <button class="button-clear"   onclick="removeEquipe('08')">Remover</button>
-      </div>
-
-      <div class="linha-equipe template"
-           style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:start; margin-bottom:6px;">
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">LEAD</label>
-          <select class="lead-select"></select>
+      <!-- 07H -->
+      <div class="horario fullwidth" data-horario="07" style="margin-bottom:16px;">
+        <h4>HORÁRIO DE 07H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('07')">Adicionar</button>
+          <button class="button-clear"   onclick="removeEquipe('07')">Remover</button>
         </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">PLACA</label>
-          <select class="placa-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">SITUAÇÃO</label>
-          <select class="situacao-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">EXTENSÃO</label>
-          <div style="display:flex; gap:4px; align-items:center;">
-            <select class="extension-select"
-                    onchange="toggleExtensionHoursRow(this)"
-                    style="width:60px;">
-              <option value="no">NÃO</option>
-              <option value="yes">SIM</option>
-            </select>
-            <input type="number"
-                   min="1"
-                   class="extension-hours hidden"
-                   placeholder="h"
-                   style="width:30px;" />
+        <div class="linha-equipe template" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:start;margin-bottom:6px;">
+          <!-- LEAD -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">LEAD</label>
+            <select class="lead-select"></select>
+          </div>
+          <!-- PLACA -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">PLACA</label>
+            <select class="placa-select"></select>
+          </div>
+          <!-- SITUAÇÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">SITUAÇÃO</label>
+            <select class="situacao-select"></select>
+          </div>
+          <!-- EXTENSÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">EXTENSÃO</label>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <select class="extension-select" onchange="toggleExtensionHoursRow(this)" style="width:60px;">
+                <option value="no">NÃO</option>
+                <option value="yes">SIM</option>
+              </select>
+              <input type="number" min="1" class="extension-hours hidden" placeholder="h" style="width:30px;"/>
+            </div>
           </div>
         </div>
+        <div class="equipe-rows"></div>
       </div>
 
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 13H -->
-    <div class="horario" data-horario="13">
-      <h4>HORÁRIO DE 13H</h4>
-      <div class="button-group">
-        <button class="button-default" onclick="addEquipe('13')">Adicionar</button>
-        <button class="button-clear"   onclick="removeEquipe('13')">Remover</button>
-      </div>
-
-      <div class="linha-equipe template"
-           style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:start; margin-bottom:6px;">
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">LEAD</label>
-          <select class="lead-select"></select>
+      <!-- 08H -->
+      <div class="horario fullwidth" data-horario="08" style="margin-bottom:16px;">
+        <h4>HORÁRIO DE 08H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('08')">Adicionar</button>
+          <button class="button-clear"   onclick="removeEquipe('08')">Remover</button>
         </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">PLACA</label>
-          <select class="placa-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">SITUAÇÃO</label>
-          <select class="situacao-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">EXTENSÃO</label>
-          <div style="display:flex; gap:4px; align-items:center;">
-            <select class="extension-select"
-                    onchange="toggleExtensionHoursRow(this)"
-                    style="width:60px;">
-              <option value="no">NÃO</option>
-              <option value="yes">SIM</option>
-            </select>
-            <input type="number"
-                   min="1"
-                   class="extension-hours hidden"
-                   placeholder="h"
-                   style="width:30px;" />
+        <div class="linha-equipe template" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:start;margin-bottom:6px;">
+          <!-- LEAD -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">LEAD</label>
+            <select class="lead-select"></select>
+          </div>
+          <!-- PLACA -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">PLACA</label>
+            <select class="placa-select"></select>
+          </div>
+          <!-- SITUAÇÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">SITUAÇÃO</label>
+            <select class="situacao-select"></select>
+          </div>
+          <!-- EXTENSÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">EXTENSÃO</label>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <select class="extension-select" onchange="toggleExtensionHoursRow(this)" style="width:60px;">
+                <option value="no">NÃO</option>
+                <option value="yes">SIM</option>
+              </select>
+              <input type="number" min="1" class="extension-hours hidden" placeholder="h" style="width:30px;"/>
+            </div>
           </div>
         </div>
+        <div class="equipe-rows"></div>
       </div>
 
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 14H -->
-    <div class="horario" data-horario="14">
-      <h4>HORÁRIO DE 14H</h4>
-      <div class="button-group">
-        <button class="button-default" onclick="addEquipe('14')">Adicionar</button>
-        <button class="button-clear"   onclick="removeEquipe('14')">Remover</button>
-      </div>
-
-      <div class="linha-equipe template"
-           style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:start; margin-bottom:6px;">
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">LEAD</label>
-          <select class="lead-select"></select>
+      <!-- 13H -->
+      <div class="horario fullwidth" data-horario="13" style="margin-bottom:16px;">
+        <h4>HORÁRIO DE 13H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('13')">Adicionar</button>
+          <button class="button-clear"   onclick="removeEquipe('13')">Remover</button>
         </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">PLACA</label>
-          <select class="placa-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">SITUAÇÃO</label>
-          <select class="situacao-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">EXTENSÃO</label>
-          <div style="display:flex; gap:4px; align-items:center;">
-            <select class="extension-select"
-                    onchange="toggleExtensionHoursRow(this)"
-                    style="width:60px;">
-              <option value="no">NÃO</option>
-              <option value="yes">SIM</option>
-            </select>
-            <input type="number"
-                   min="1"
-                   class="extension-hours hidden"
-                   placeholder="h"
-                   style="width:30px;" />
+        <div class="linha-equipe template" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:start;margin-bottom:6px;">
+          <!-- LEAD -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">LEAD</label>
+            <select class="lead-select"></select>
+          </div>
+          <!-- PLACA -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">PLACA</label>
+            <select class="placa-select"></select>
+          </div>
+          <!-- SITUAÇÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">SITUAÇÃO</label>
+            <select class="situacao-select"></select>
+          </div>
+          <!-- EXTENSÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">EXTENSÃO</label>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <select class="extension-select" onchange="toggleExtensionHoursRow(this)" style="width:60px;">
+                <option value="no">NÃO</option>
+                <option value="yes">SIM</option>
+              </select>
+              <input type="number" min="1" class="extension-hours hidden" placeholder="h" style="width:30px;"/>
+            </div>
           </div>
         </div>
+        <div class="equipe-rows"></div>
       </div>
 
-      <div class="equipe-rows"></div>
-    </div>
-
-    <!-- 22H -->
-    <div class="horario" data-horario="22">
-      <h4>HORÁRIO DE 22H</h4>
-      <div class="button-group">
-        <button class="button-default" onclick="addEquipe('22')">Adicionar</button>
-        <button class="button-clear"   onclick="removeEquipe('22')">Remover</button>
-      </div>
-
-      <div class="linha-equipe template"
-           style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:start; margin-bottom:6px;">
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">LEAD</label>
-          <select class="lead-select"></select>
+      <!-- 14H -->
+      <div class="horario fullwidth" data-horario="14" style="margin-bottom:16px;">
+        <h4>HORÁRIO DE 14H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('14')">Adicionar</button>
+          <button class="button-clear"   onclick="removeEquipe('14')">Remover</button>
         </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">PLACA</label>
-          <select class="placa-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">SITUAÇÃO</label>
-          <select class="situacao-select"></select>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <label style="font-size:12px; font-weight:bold; margin-bottom:2px;">EXTENSÃO</label>
-          <div style="display:flex; gap:4px; align-items:center;">
-            <select class="extension-select"
-                    onchange="toggleExtensionHoursRow(this)"
-                    style="width:60px;">
-              <option value="no">NÃO</option>
-              <option value="yes">SIM</option>
-            </select>
-            <input type="number"
-                   min="1"
-                   class="extension-hours hidden"
-                   placeholder="h"
-                   style="width:30px;" />
+        <div class="linha-equipe template" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:start;margin-bottom:6px;">
+          <!-- LEAD -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">LEAD</label>
+            <select class="lead-select"></select>
+          </div>
+          <!-- PLACA -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">PLACA</label>
+            <select class="placa-select"></select>
+          </div>
+          <!-- SITUAÇÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">SITUAÇÃO</label>
+            <select class="situacao-select"></select>
+          </div>
+          <!-- EXTENSÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">EXTENSÃO</label>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <select class="extension-select" onchange="toggleExtensionHoursRow(this)" style="width:60px;">
+                <option value="no">NÃO</option>
+                <option value="yes">SIM</option>
+              </select>
+              <input type="number" min="1" class="extension-hours hidden" placeholder="h" style="width:30px;"/>
+            </div>
           </div>
         </div>
+        <div class="equipe-rows"></div>
       </div>
 
-      <div class="equipe-rows"></div>
-    </div>
-
-
-
+      <!-- 22H -->
+      <div class="horario fullwidth" data-horario="22" style="margin-bottom:16px;">
+        <h4>HORÁRIO DE 22H</h4>
+        <div class="button-group">
+          <button class="button-default" onclick="addEquipe('22')">Adicionar</button>
+          <button class="button-clear"   onclick="removeEquipe('22')">Remover</button>
+        </div>
+        <div class="linha-equipe template" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:start;margin-bottom:6px;">
+          <!-- LEAD -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">LEAD</label>
+            <select class="lead-select"></select>
+          </div>
+          <!-- PLACA -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">PLACA</label>
+            <select class="placa-select"></select>
+          </div>
+          <!-- SITUAÇÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">SITUAÇÃO</label>
+            <select class="situacao-select"></select>
+          </div>
+          <!-- EXTENSÃO -->
+          <div style="display:flex;flex-direction:column;">
+            <label style="font-size:12px;font-weight:bold;margin-bottom:2px;">EXTENSÃO</label>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <select class="extension-select" onchange="toggleExtensionHoursRow(this)" style="width:60px;">
+                <option value="no">NÃO</option>
+                <option value="yes">SIM</option>
+              </select>
+              <input type="number" min="1" class="extension-hours hidden" placeholder="h" style="width:30px;"/>
+            </div>
+          </div>
+        </div>
+        <div class="equipe-rows"></div>
+      </div>
+    </div> <!-- fim .horarios-container -->
+  </div>   <!-- fim .section.horarios-section -->
+</div>  
+    
+<!-- Agora vem a contagem, isolada -->
 <div class="count-buttons-container">
   <div class="count-button">
     <span class="label">EQP. EM CAMPO 🚗</span>
@@ -1129,10 +1158,12 @@
   </div>
 </div>
 
-    <!-- Botão e bloco de “Preencha Informação detalhada” -->
+<!-- Botão para mostrar/ocultar toda a seção detalhada -->
 <button id="toggle-detalhada" class="button-default">
   Ocultar Seção Detalhada
 </button>
+
+<!-- Seção Detalhada -->
 <div id="section-detalhada">
   <h2 style="
       color: #e63946;
@@ -1145,16 +1176,16 @@
   </h2>
 
   <!-- Seção Eletricistas Parados -->
-  <div class="section">
-    <h3>🚗 Viaturas Paradas</h3>
-    <button class="button-default" onclick="adicionarColaborador()">Adicionar</button>
-    <button class="button-clear"   onclick="removerColaborador()">Remover</button>
-    <div id="colaboradoresParados"></div>
-    <div class="flex">
-      <label for="totalParados">TOTAL EQUIPES PARADAS:</label>
-      <input type="text" id="totalParados" readonly class="readonly">
-    </div>
-  </div>
+        <div class="section">
+          <h3>🚗 Viaturas Paradas</h3>
+          <button class="button-default" onclick="adicionarColaborador()">Adicionar</button>
+          <button class="button-clear"   onclick="removerColaborador()">Remover</button>
+          <div id="colaboradoresParados"></div>
+          <div class="flex">
+            <label for="totalParados">TOTAL EQUIPES PARADAS:</label>
+            <input type="text" id="totalParados" readonly class="readonly">
+          </div>
+        </div>
 
   <!-- Datalist com a lista de eletricistas (vai ser preenchido via JS) -->
   <datalist id="eletricistasList"></datalist>
@@ -1195,6 +1226,7 @@
     </div>
   </div>
 </div>
+
 
 <script>
   document
